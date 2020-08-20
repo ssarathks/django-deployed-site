@@ -23,6 +23,14 @@
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'second_app:user_logout' %}">Logout</a>
             </li>
+            
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'second_app:cbview' %}">ClassBasedView</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'second_app:template_view' %}">TemplateTestview</a>
+            </li>
         {%else%}
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'user_login' %}">Login</a>

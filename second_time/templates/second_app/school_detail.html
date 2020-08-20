@@ -1,0 +1,17 @@
+{% extends 'second_app/base.html' %}
+{% block body_block%}
+    <h1>School Detail Page</h1>
+    <h3>Name : {{school_detail.name}}</h3>
+    <h3>Principal : {{school_detail.principal}}</h3>
+    <h3>Location : {{school_detail.location}}</h3>
+
+    <h2>List of students in {{school_detail.name}}</h2>
+    {% for student in school_detail.students.all%}
+        <ul>
+            <li>{{student.name}} of {{student.age}} years old</li>
+        </ul>
+    {% endfor%}
+    <a class="btn btn-warning" href="{% url 'second_app:school_update_view' pk=school_detail.pk %}">Update</a>
+    <a class="btn btn-danger" href="{% url 'second_app:school_delete_view' pk=school_detail.pk %}">Delete</a>
+
+{% endblock%}

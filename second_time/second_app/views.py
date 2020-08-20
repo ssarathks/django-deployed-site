@@ -1,12 +1,13 @@
 from django.shortcuts import render
-from second_app.models import UserProfileInfo
+from second_app.models import UserProfileInfo,School,Student
 from second_app.forms import UserForm,UserProfileInfoForm
 
 
 from django.http import HttpResponseRedirect,HttpResponse
-from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse,reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate,login,logout
+from django.views.generic import View,TemplateView,ListView,DetailView,CreateView,UpdateView,DeleteView
 # Create your views here.
 
 def index(request):
@@ -61,3 +62,40 @@ def user_logout(request):
 
 
         return render(request,'second_app/login.html')
+
+
+class CBView(View):
+        def get(self,request):
+                return HttpResponse("This is the class based view page")
+
+class TemplatePageView(TemplateView):
+        template_name = 'second_app/template_view_test.html'
+        
+        def get_context_data(self,**kwargs):
+                context = super().get_context_data(**kwargs)
+                context['inject_me'] = "Injected Content for Template view page"
+                return context
+
+class SchoolListView(ListView):
+        model = School
+        template_name = 'second_app/school_list_page.html'
+
+class SchoolDetailView(DetailView):
+        model = School
+        template_name = 'second_app/school_detail.html'
+        context_object_name = 'school_detail'
+
+class SchoolCreateView(CreateView):
+        model =School
+        fields = ('name','principal','location')
+
+class StudentCreateView(CreateView):
+        model =Student
+        fields = ('name','age','school')
+class SchoolUpdateView(UpdateView):
+        model = School
+        fields = ('name','principal')
+
+class SchoolDeleteView(DeleteView):
+        model = School
+        success_url = reverse_lazy('second_app:school_list_view')

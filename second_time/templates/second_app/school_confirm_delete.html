@@ -1,0 +1,11 @@
+{% extends 'second_app/base.html'%}
+{% block body_block %}
+    <p>Delete {{school.name}}?</p>
+    <form method="POST">
+        {% csrf_token %}
+        <input class="btn btn-danger" type="submit" value="Delete">
+        <a href="{% url 'second_app:school_detail_view' pk=school.pk %}">Cancel</a>
+
+    </form>
+    
+{% endblock%}
